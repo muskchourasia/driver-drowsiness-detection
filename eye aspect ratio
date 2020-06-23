@@ -1,0 +1,21 @@
+A program was developed to identify the driver's drowsiness based on real-time camera image and image processing techniques, and this program makes warning through alarm, when it detects drowsiness driving.
+Extracting face and eye region: 
+Using the Histogram Of Gradients face pattern, to find the face from the Grayscaled-HOG-input-image .Use the Face Landmark Estimation algorithm to locate the landmarks on the face.
+Drowsiness detection method:   
+Each eye is represented by 6 (x, y)-coordinatesThe Eye Aspect Ratio (EAR) is calculated using six (x, y) coordinates for the detected eye. 
+ 
+•	Calculated EAR
+•	The calculated EAR will have a value more than zero when the eyes are open, and a value close to zero when the eyes are closed. 
+•	This program has set a 50% value from the average EAR value to the threshold value. 
+1) measures the average EAR value when the eyes are open.
+2) measures the average EAR value when the driver is closing his eyes
+ 3) sets the threshold using the above two results.
+•	The computed EAR has a nonzero value when you open your eyes and a value close to zero when you close your eyes. If you set a certain threshold to the threshold (the threshold used to determine drowsy operation), you can detect that the driver is drowsy by checking whether the EAR value is smaller than that value.
+•	In addition, since it is not necessary to examine both eyes separately to determine drowsy driving, the average of EAR values of each eye was used.
+•	Threshold value is set to 50% of EAR value when eyes are opened. If it's smaller (when the eye size is smaller), the driver thinks you're sleepy and cares about whether you're sleepy, so the alarm sounds even if you're not in full sleep.
+•	To apply this algorithm, we applied three steps: 
+1) Determine average EAR value when driver opens eyes
+2) Determine average EAR value when driver closes eyes
+3) EAR value that is 50% of eyes open using the above two values. 
+if EAR < threshold for 20 frame then going alarm off.
+The drowsiness phase is divided according to the time when the eyes are closed and the time the eyes were opened before the drowsiness operation.To distinguish drowsiness level, we used K-Nearest Neighbor(KNN) supervised learning algorithm.
